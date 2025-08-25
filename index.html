@@ -2,9 +2,27 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>French -ER Verbs Learning App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .touch-manipulation {
+        touch-action: manipulation;
+      }
+      /* Prevent iOS zoom on input focus */
+      @media screen and (max-width: 768px) {
+        input, textarea, select {
+          font-size: 16px !important;
+        }
+      }
+      /* Better tap targets on mobile */
+      @media (hover: none) and (pointer: coarse) {
+        button, input[type="checkbox"], input[type="radio"] {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

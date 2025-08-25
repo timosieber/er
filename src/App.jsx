@@ -330,26 +330,27 @@ export default function App() {
   return (
     <div ref={appRef} className={`min-h-screen ${screen === "practice" || screen === "review" ? "bg-zinc-950 text-white" : "bg-gray-50 text-gray-900"} transition-colors`}>
       {screen === "setup" && (
-        <div className="max-w-3xl mx-auto p-6">
-          <header className="mb-8 flex items-center justify-between">
-            <h1 className="text-3xl font-bold">Regelmässige -ER Verben – Übungsmodus (Présent)</h1>
-            <button onClick={resetAll} className="px-3 py-2 text-sm rounded-xl bg-gray-200 hover:bg-gray-300">Fortschritt zurücksetzen</button>
+        <div className="max-w-3xl mx-auto p-4 sm:p-6">
+          <header className="mb-6 sm:mb-8">
+            <h1 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-0">Regelmässige -ER Verben – Übungsmodus (Présent)</h1>
+            <button onClick={resetAll} className="w-full sm:w-auto px-4 py-3 sm:px-3 sm:py-2 text-sm rounded-xl bg-gray-200 hover:bg-gray-300 touch-manipulation">Fortschritt zurücksetzen</button>
           </header>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="p-5 rounded-3xl bg-white shadow-sm">
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
+            <div className="p-4 sm:p-5 rounded-3xl bg-white shadow-sm">
               <div className="font-semibold mb-3">Schritt 1 – Verben wählen</div>
               <div className="flex gap-2 mb-3">
-                <button onClick={selectAll} className="px-2 py-1 text-xs rounded-lg bg-gray-100 hover:bg-gray-200">Alle</button>
-                <button onClick={selectNone} className="px-2 py-1 text-xs rounded-lg bg-gray-100 hover:bg-gray-200">Keine</button>
+                <button onClick={selectAll} className="px-4 py-2 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 touch-manipulation">Alle</button>
+                <button onClick={selectNone} className="px-4 py-2 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 touch-manipulation">Keine</button>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-auto pr-1">
+              <div className="grid grid-cols-1 gap-3 max-h-64 overflow-auto pr-1">
                 {VERB_BANK.map((v) => (
-                  <label key={v.key} className="flex items-center gap-2 text-sm p-2 rounded-xl border border-gray-200 hover:bg-gray-50">
+                  <label key={v.key} className="flex items-center gap-3 text-sm p-3 rounded-xl border border-gray-200 hover:bg-gray-50 touch-manipulation">
                     <input
                       type="checkbox"
                       checked={enabledVerbs.includes(v.key)}
                       onChange={(e) => toggleVerb(v.key, e.target.checked)}
+                      className="w-4 h-4"
                     />
                     <span>{v.label}</span>
                   </label>
@@ -358,22 +359,22 @@ export default function App() {
               <p className="text-xs text-gray-500 mt-2">Tipp: Starte mit 5–8 Verben. Später kannst du mehr hinzufügen.</p>
             </div>
 
-            <div className="p-5 rounded-3xl bg-white shadow-sm">
+            <div className="p-4 sm:p-5 rounded-3xl bg-white shadow-sm">
               <div className="font-semibold mb-3">Schritt 2 – Schwierigkeits‑Stufe</div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {STAGES.map((s, idx) => (
-                  <label key={idx} className={`flex items-center justify-between gap-3 p-3 rounded-2xl border ${stageIndex === idx ? "border-blue-500 bg-blue-50" : "border-gray-200"}`}>
+                  <label key={idx} className={`flex items-center justify-between gap-3 p-4 rounded-2xl border touch-manipulation ${stageIndex === idx ? "border-blue-500 bg-blue-50" : "border-gray-200"}`}>
                     <div>
                       <div className="font-medium">Stufe {idx + 1}: {s.label}</div>
                       <div className="text-xs text-gray-600">Pronomen: {s.pronouns.join(", ")} {s.hints ? "• Hinweise an" : "• Hinweise aus"} {s.ignoreAccents ? "• Akzente ignorieren" : "• Akzente nötig"}</div>
                     </div>
-                    <input type="radio" name="stage" checked={stageIndex === idx} onChange={() => setStageIndex(idx)} />
+                    <input type="radio" name="stage" checked={stageIndex === idx} onChange={() => setStageIndex(idx)} className="w-4 h-4" />
                   </label>
                 ))}
               </div>
             </div>
 
-            <div className="p-5 rounded-3xl bg-white shadow-sm">
+            <div className="p-4 sm:p-5 rounded-3xl bg-white shadow-sm">
               <div className="font-semibold mb-3">Schritt 3 – Sitzungsdauer</div>
               <input
                 type="range"
@@ -388,7 +389,7 @@ export default function App() {
               <p className="text-xs text-gray-600 mt-2">Fehler werden bevorzugt wiederholt (innerhalb der nächsten 3 Karten) und am Schluss nochmals geprüft.</p>
             </div>
 
-            <div className="p-5 rounded-3xl bg-white shadow-sm">
+            <div className="p-4 sm:p-5 rounded-3xl bg-white shadow-sm">
               <div className="font-semibold mb-3">Start</div>
               <ul className="text-sm text-gray-700 list-disc pl-4 space-y-1">
                 <li>Minimal‑UI im Übungsmodus (dunkel, ohne Ablenkung) – optional Vollbild.</li>
@@ -398,7 +399,7 @@ export default function App() {
               <button
                 disabled={deckEmpty}
                 onClick={startPractice}
-                className={`mt-4 w-full py-3 rounded-2xl ${deckEmpty ? "bg-gray-300 text-gray-600" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+                className={`mt-4 w-full py-4 text-lg rounded-2xl touch-manipulation ${deckEmpty ? "bg-gray-300 text-gray-600" : "bg-blue-600 text-white hover:bg-blue-700"}`}
                 title={deckEmpty ? "Bitte mindestens 1 Verb wählen" : "Übung starten"}
               >
                 Übung starten
@@ -409,18 +410,18 @@ export default function App() {
       )}
 
       {(screen === "practice" || screen === "review") && (
-        <div className="max-w-xl mx-auto px-6 pt-10 pb-16">
+        <div className="max-w-xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-16 min-h-screen flex flex-col">
           {/* Top bar */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div className="text-xs uppercase tracking-widest text-zinc-400">{screen === "review" ? "Fehler‑Wiederholung" : "Fokus‑Übung"}</div>
             <div className="text-sm text-zinc-400">{session.total}/{session.target}</div>
           </div>
 
           {/* Card */}
           {current && (
-            <div className="p-6 rounded-3xl bg-zinc-900/60 border border-zinc-800 backdrop-blur">
+            <div className="p-4 sm:p-6 rounded-3xl bg-zinc-900/60 border border-zinc-800 backdrop-blur flex-1">
               <div className="text-zinc-300 text-sm mb-2">Schreibe die konjugierte Form</div>
-              <div className="text-2xl font-semibold mb-4">
+              <div className="text-xl sm:text-2xl font-semibold mb-4">
                 <span className="italic text-zinc-100">{current.pronoun}</span>
                 <span className="mx-2">+</span>
                 <span className="italic text-zinc-100">{current.verb}</span>
@@ -430,20 +431,23 @@ export default function App() {
                 <div className="text-xs text-zinc-400 mb-3">Hinweis: Präsens • {ignoreAccents ? "Akzente optional" : "Akzente nötig"}</div>
               )}
 
-              <form onSubmit={onSubmit} className="flex gap-3">
+              <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-3">
                 <input
                   autoFocus
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="flex-1 px-4 py-3 rounded-2xl bg-zinc-950 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-zinc-100 placeholder-zinc-500"
+                  className="flex-1 px-4 py-4 sm:py-3 text-lg sm:text-base rounded-2xl bg-zinc-950 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-zinc-100 placeholder-zinc-500"
                   placeholder="z. B. j'aime / nous parlons / vous regardez"
                   spellCheck={false}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
                 />
-                <button type="submit" className="px-5 py-3 rounded-2xl bg-blue-600 text-white font-medium hover:bg-blue-700">Prüfen</button>
+                <button type="submit" className="px-6 py-4 sm:px-5 sm:py-3 text-lg sm:text-base rounded-2xl bg-blue-600 text-white font-medium hover:bg-blue-700 touch-manipulation">Prüfen</button>
               </form>
 
               {feedback && (
-                <div className={`mt-4 p-3 rounded-2xl border ${feedback.ok ? "bg-emerald-900/40 border-emerald-700 text-emerald-100" : "bg-rose-900/40 border-rose-700 text-rose-100"}`}>
+                <div className={`mt-4 p-4 rounded-2xl border ${feedback.ok ? "bg-emerald-900/40 border-emerald-700 text-emerald-100" : "bg-rose-900/40 border-rose-700 text-rose-100"}`}>
                   {feedback.ok ? (
                     <div>
                       <div className="font-semibold">Richtig! 🎉</div>
@@ -458,8 +462,8 @@ export default function App() {
                       </div>
                     </div>
                   )}
-                  <div className="mt-3 flex gap-2">
-                    <button onClick={nextCard} className={`px-3 py-2 rounded-xl ${feedback.ok ? "bg-emerald-700 hover:bg-emerald-600 text-white" : "bg-rose-700 hover:bg-rose-600 text-white"} text-sm`}>Weiter</button>
+                  <div className="mt-4 flex gap-3">
+                    <button onClick={nextCard} className={`px-5 py-3 rounded-xl touch-manipulation ${feedback.ok ? "bg-emerald-700 hover:bg-emerald-600 text-white" : "bg-rose-700 hover:bg-rose-600 text-white"} text-base`}>Weiter</button>
                     {!feedback.ok && (
                       <span className="text-xs text-zinc-400 self-center">(Diese Karte kommt am Schluss nochmals.)</span>
                     )}
@@ -468,13 +472,13 @@ export default function App() {
               )}
 
               {/* Minimal footer infos */}
-              <div className="mt-6 flex items-center justify-between text-xs text-zinc-500">
+              <div className="mt-6 flex items-center justify-between text-xs sm:text-sm text-zinc-500">
                 <div>Trefferquote: {session.total ? Math.round((session.correct / session.total) * 100) : 0}%</div>
                 <div className="flex items-center gap-2">
                   {focusMode ? (
-                    <button onClick={exitFocus} className="underline underline-offset-2">Vollbild verlassen</button>
+                    <button onClick={exitFocus} className="underline underline-offset-2 touch-manipulation py-1 px-2">Vollbild verlassen</button>
                   ) : (
-                    <button onClick={enterFocus} className="underline underline-offset-2">Vollbild</button>
+                    <button onClick={enterFocus} className="underline underline-offset-2 touch-manipulation py-1 px-2">Vollbild</button>
                   )}
                 </div>
               </div>
@@ -484,9 +488,9 @@ export default function App() {
       )}
 
       {screen === "results" && (
-        <div className="max-w-xl mx-auto p-6">
-          <div className="p-6 rounded-3xl bg-white shadow-sm">
-            <h2 className="text-2xl font-bold mb-2">Sitzung beendet</h2>
+        <div className="max-w-xl mx-auto p-4 sm:p-6">
+          <div className="p-4 sm:p-6 rounded-3xl bg-white shadow-sm">
+            <h2 className="text-xl sm:text-2xl font-bold mb-2">Sitzung beendet</h2>
             <div className="text-sm mb-4">Richtig: <b>{session.correct}</b> / Versuche: <b>{session.total}</b> → Trefferquote <b>{session.total ? Math.round((session.correct / session.total) * 100) : 0}%</b></div>
 
             <div className="grid grid-cols-2 gap-3 text-sm">
@@ -500,9 +504,9 @@ export default function App() {
               </div>
             </div>
 
-            <div className="mt-6 flex gap-3">
-              <button onClick={() => setScreen("setup")} className="px-4 py-3 rounded-2xl bg-gray-200 hover:bg-gray-300">Zurück zu den Einstellungen</button>
-              <button onClick={() => setScreen(wrongList.length ? "review" : "practice")} className="px-4 py-3 rounded-2xl bg-blue-600 text-white hover:bg-blue-700">{wrongList.length ? "Fehler wiederholen" : "Nochmals üben"}</button>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <button onClick={() => setScreen("setup")} className="px-4 py-3 rounded-2xl bg-gray-200 hover:bg-gray-300 touch-manipulation">Zurück zu den Einstellungen</button>
+              <button onClick={() => setScreen(wrongList.length ? "review" : "practice")} className="px-4 py-3 rounded-2xl bg-blue-600 text-white hover:bg-blue-700 touch-manipulation">{wrongList.length ? "Fehler wiederholen" : "Nochmals üben"}</button>
             </div>
           </div>
         </div>
